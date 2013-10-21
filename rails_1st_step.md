@@ -54,3 +54,48 @@ $ bundle exec rails s
 
 # `localhost:3000/dailyreports`にアクセスすると、dailyreportsのトップページが表示される。
 ```
+
+
+## 検索機能を追加
+
+model
+
+```
+# app/models/search_form.rb
+class SearchForm
+  include ActiveModel::Model
+
+  attr_accessor :q
+end
+```
+
+```
+# app/models/dailyreport.rb
+class Dailyreport < ActiveRecord::Base
+  scope :find_content, ->(q) { where 'contents like ?', "%#{q}%" }
+end
+```
+
+view
+
+```
+# app/views/dailyreports/index.html.erb
+<%= form_for @search_form, url: dailyreports_path, html: {method: :get} do |f| %>
+  <%= f.search_field :q %>
+  <%= f.submit 'search' %>
+<% end %>
+```
+
+controller
+
+```
+# app/controllers/dailyreports_controller.rb
+def index
+  # @dailyreports = Dailyreport.all
+  @search_form = SearchForm.new params[:search_form]
+  @dailyreports = Dailyreport.all
+  if @search_form.q.present?
+    @dailyreports = @dailyreports.find_content @search_form.q
+  end
+end
+```
