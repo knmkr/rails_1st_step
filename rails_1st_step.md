@@ -21,14 +21,14 @@ EOS
 $ bundle install --path vendor/bundle
 
 # Railsプロジェクト作成
-$ RAILS_PROJECT_NAME=rails_1st_step
-$ bundle exec rails new $RAILS_PROJECT_NAME --skip-bundle
+$ PROJECT_NAME=rails_1st_step
+$ bundle exec rails new $PROJECT_NAME --skip-bundle
 
 # ./vendor/bundleのrailsをアンインストール
 $ rm -rf Gemfile Gemfile.lock .bundle vendor/bundle
 
 # Railsプロジェクト内にgemをインストール
-$ cd rails_1st_step
+$ cd $PROJECT_NAME
 $ bundle install --path vendor/bundle
 
 # 今後gemを追加したいときは、Railsプロジェクト内のGemfileに書いて、
