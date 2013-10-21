@@ -37,4 +37,20 @@ $ bundle install --path vendor/bundle
 ```
 
 
-##
+## サンプルアプリケーションの作成
+
+サンプルとして、日報(dailyreports)をデータベースにCRUD(Create, Read, Update, Delete)するアプリケーションを作成。
+
+```
+# scaffoldでアプリケーションのひな形を作成
+$ bundle exec rails generate scaffold dailyreport title contents created_at:datetime
+$ bundle exec rake db:migrate
+
+# テスト実行
+$ bundle exec rake
+
+# 開発サーバ起動
+$ bundle exec rails s
+
+# `localhost:3000/dailyreports`にアクセスすると、dailyreportsのトップページが表示される。
+```
