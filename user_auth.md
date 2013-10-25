@@ -28,15 +28,15 @@ $ bundle exec rails console
 > @user.password_confirmation = 'pass'
 > @user.save
 (0.5ms)  BEGIN
-SQL (15.6ms)  INSERT INTO "users" ("created_at", "email", "password_digest", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", Fri, 25 Oct 2013 11:45:52 JST +09:00], ["email", "knmkr@knmkr.com"], ["password_digest", "$2a$1..."], ["updated_at", Fri, 25 Oct 2013 11:45:52 JST +09:00]]
+SQL (15.6ms)  INSERT INTO "users" ("created_at", "email", "password_digest", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", Fri, 25 Oct 2013 11:45:52 JST +09:00], ["email", "knmkr@knmkr.info"], ["password_digest", "$2a$1..."], ["updated_at", Fri, 25 Oct 2013 11:45:52 JST +09:00]]
 (1.6ms)  COMMIT
 => true
 ```
 
-id=1のユーザを探してみる
+ユーザの検索。(find_byは、検索条件を指定して最初の1件を取得)
 
 ```
-> u = User.find(1)
+> u = User.find_by(email: 'knmkr@knmkr.info')
 > u.password
 => nil
 > u.password_digest
@@ -49,5 +49,5 @@ id=1のユーザを探してみる
 > u.authenticate('123')
 => false
 > u.authenticate('pass')
-=> #<User id: 1, name: nil, email: "knmkr@email.com", created_at: "2013-10-25 02:45:52", password_digest: "$2a$1...", updated_at: "2013-10-25 02:45:52"
+=> #<User id: 1, name: nil, email: "knmkr@knmkr.info", created_at: "2013-10-25 02:45:52", password_digest: "$2a$1...", updated_at: "2013-10-25 02:45:52"
 ```
