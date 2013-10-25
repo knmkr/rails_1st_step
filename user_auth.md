@@ -1,16 +1,32 @@
 # User authentication with Rails4
 
+デフォルトでGemfileに書かれている`bcrypt-ruby`を利用すると、認証機能つきのモデルがつくれる。
+
+## Setup
+
+Gemfileのbcrypt-rubyの行のコメントアウトを解除して、
+
+```
+# Use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '~> 3.0.0'
+```
+
+gemをインストール
+
+```
+$ bundle install --path vendor/bundle
+```
+
+
 ## Model
 
-`password_digest:string`カラムをつけて、`has_secure_password`を設定すると、認証機能つきのモデルがつくれる。
-
-まずはscaffoldでuserをつくる
+まずはscaffoldでuserをつくる。このとき、**モデルに`password_digest:string`というカラムをつける。**
 
 ```
 $ bundle exec rails generate scaffold user email password_digest:string
 ```
 
-app/models/user.rbに、`has_secure_password`をセット
+作成された**Userモデル(app/models/user.rb)に、`has_secure_password`をセット**
 
 ```
 class User < ActiveRecord::Base
@@ -23,7 +39,7 @@ end
 ```
 $ bundle exec rails console
 > @user = User.new
-> @user.email = 'knmkr@knmkr.com'
+> @user.email = 'knmkr@knmkr.info'
 > @user.password = 'pass'
 > @user.password_confirmation = 'pass'
 > @user.save
