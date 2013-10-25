@@ -24,6 +24,7 @@ $ bundle install --path vendor/bundle
 
 ```
 $ bundle exec rails generate scaffold user email password_digest:string
+$ bundle exec rake db:migrate
 ```
 
 作成された**Userモデル(app/models/user.rb)に、`has_secure_password`をセット**
