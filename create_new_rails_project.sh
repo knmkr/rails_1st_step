@@ -21,13 +21,13 @@ fi
 # Install Rails in ./vendor/bundle/ temporarily (uninstall later), to create a new Rails project.
 cat << EOS > Gemfile
 source "http://rubygems.org"
-gem "rails", "4.0.0"
+gem "rails", "4.0.3"
 EOS
 
 bundle install --path vendor/bundle
 
 # Create a new Rails project.
-bundle exec rails new $PROJECT_NAME --skip-bundle
+bundle exec rails new $PROJECT_NAME --skip-bundle --skip-test-unit
 
 # Uninstall Rails in ./vendor/bundle/
 rm -rf Gemfile Gemfile.lock .bundle vendor/bundle
