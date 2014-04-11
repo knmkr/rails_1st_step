@@ -29,6 +29,9 @@ bundle install --path vendor/bundle
 # Create a new Rails project.
 bundle exec rails new $PROJECT_NAME --skip-bundle --skip-test-unit
 
+# Add .gitignore
+cp Rails.gitignore.txt $PROJECT_NAME/.gitignore
+
 # Uninstall Rails in ./vendor/bundle/
 rm -rf Gemfile Gemfile.lock .bundle vendor/bundle
 
