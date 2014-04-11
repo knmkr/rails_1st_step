@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
+WORK_DIR=.create_new_rails_project
+
 PROJECT_NAME=$1
 if [ "$2" = "" ]; then RAILS_VERSION="4.0.3"; else RAILS_VERSION=$2 ; fi  # Rails version
 
-if [ $# -ne 1 ]; then echo "USAGE: $0 PROJECT_NAME"; exit 1; fi
+if [ $# -eq 0 -o $# -gt 2 ]; then echo "USAGE: $0 PROJECT_NAME"; exit 1; fi
 if [ -d $PROJECT_NAME ]; then echo "'$PROJECT_NAME' directory already exists"; exit 1; fi
-if [ -d work ]; then echo "'work' directory already exists"; exit 1; fi
+if [ -d $WORK_DIR ]; then echo "'$WORK_DIR' directory already exists"; exit 1; fi
 
-mkdir work
-cd work
+mkdir $WORK_DIR
+cd $WORK_DIR
 
 # Install Bundler in global Ruby environment if not installed.
 is_bundle_installed=$(echo `bundle -v` | awk '/Bundler version/ {print "installed"}')
@@ -31,7 +33,7 @@ bundle install --path vendor/bundle
 bundle exec rails new $PROJECT_NAME --skip-bundle --skip-test-unit
 
 # Add .gitignore
-cp Rails.gitignore.txt $PROJECT_NAME/.gitignore
+curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/master/Rails.gitignore
 
 # Uninstall Rails in ./vendor/bundle/
 rm -rf Gemfile Gemfile.lock .bundle vendor/bundle
@@ -41,7 +43,7 @@ cd $PROJECT_NAME
 bundle install --path vendor/bundle
 
 cd ../../
-mv work/$PROJECT_NAME .
-rm -rf work
+mv $WORK_DIR/$PROJECT_NAME .
+rm -rf $WORK_DIR
 
 echo "done"
