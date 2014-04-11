@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECT_NAME=$1
+if [ "$2" = "" ]; then RAILS_VERSION="4.0.3"; else RAILS_VERSION=$2 ; fi  # Rails version
 
 if [ $# -ne 1 ]; then echo "USAGE: $0 PROJECT_NAME"; exit 1; fi
 if [ -d $PROJECT_NAME ]; then echo "'$PROJECT_NAME' directory already exists"; exit 1; fi
@@ -21,7 +22,7 @@ fi
 # Install Rails in ./vendor/bundle/ temporarily (uninstall later), to create a new Rails project.
 cat << EOS > Gemfile
 source "http://rubygems.org"
-gem "rails", "4.0.3"
+gem "rails", "$RAILS_VERSION"
 EOS
 
 bundle install --path vendor/bundle
