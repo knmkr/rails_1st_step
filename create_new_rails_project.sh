@@ -32,15 +32,15 @@ bundle install --path vendor/bundle
 # Create a new Rails project.
 bundle exec rails new $PROJECT_NAME --skip-bundle --skip-test-unit
 
-# Add .gitignore
-curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/master/Rails.gitignore
-
 # Uninstall Rails in ./vendor/bundle/
 rm -rf Gemfile Gemfile.lock .bundle vendor/bundle
 
 # Install gems in Rails project.
 cd $PROJECT_NAME
 bundle install --path vendor/bundle
+
+# Add .gitignore
+curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/master/Rails.gitignore
 
 cd ../../
 mv $WORK_DIR/$PROJECT_NAME .
