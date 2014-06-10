@@ -13,13 +13,15 @@ mkdir $WORK_DIR
 cd $WORK_DIR
 
 # Install Bundler in global Ruby environment if not installed.
-is_bundle_installed=$(echo `bundle -v` | awk '/Bundler version/ {print "installed"}')
-
-if [ $is_bundle_installed != "installed" ]; then
-    echo "Bundler not installed"
-    rbenv exec gem install bundler
-    rbenv rehash
-fi
+until
+  bundle -v
+  [ "$?" -ne 127 ]
+do
+  echo Bundler not installed
+  rbenv exec gem install bundler
+  rbenv rehash
+done
+echo Bundler installed
 
 # Install Rails in ./vendor/bundle/ temporarily (uninstall later), to create a new Rails project.
 cat << EOS > Gemfile
