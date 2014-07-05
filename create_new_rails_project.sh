@@ -3,7 +3,7 @@
 WORK_DIR=.create_new_rails_project
 
 PROJECT_NAME=$1
-if [ "$2" = "" ]; then RAILS_VERSION="4.0.3"; else RAILS_VERSION=$2 ; fi  # Rails version
+if [ "$2" = "" ]; then RAILS_VERSION="4.0.8"; else RAILS_VERSION=$2 ; fi  # Rails version
 
 if [ $# -eq 0 -o $# -gt 2 ]; then echo "USAGE: $0 PROJECT_NAME"; exit 1; fi
 if [ -d $PROJECT_NAME ]; then echo "'$PROJECT_NAME' directory already exists"; exit 1; fi
